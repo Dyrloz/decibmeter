@@ -9,7 +9,7 @@ DURATION=1
 # Function to calculate the decibel level
 calculate_decibel_level() {
     # Capture audio and calculate the RMS (Root Mean Square) amplitude
-    local rms_amplitude=$(sox -t alsa $AUDIO_DEVICE -n stat 2>&1 | grep "RMS amplitude" | awk '{print $3}')
+    local rms_amplitude=$(sox -t alsa $AUDIO_DEVICE -n stat trim 0 5 2>&1 | grep "RMS     ampli" | awk '{print $3}')
 
     # Convert RMS amplitude to decibels
     local decibel_level=$(echo "20 * l($rms_amplitude) / l(10)" | bc -l)
